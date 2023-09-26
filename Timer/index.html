@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+
+<!--
+    只是個小時鐘而已，也可以自己把時間或日期的 <div> 拔掉，只顯示時間或日期，
+    保留 <div data-time></div> 表示只顯示時間；
+    保留 <div data-date></div> 表示只顯示日期；
+
+    放入 OBS：
+    1. 選擇「瀏覽器」，勾選「本機檔案」，選擇您的檔案存放位置
+    2. 將檔案「拖曳」進入 OBS
+
+    建議寬高：
+    寬 300 高 150
+-->
+
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <style>
+            /* 
+                字體設定
+                - 前往 https://fonts.google.com/ 選擇字體後依照指示進行設定
+
+                1. 選擇想要的字體後，點選旁邊的 +
+                    (粗一點就選 Medium 以上，預設請選 Regular)
+                
+                2. 旁邊會跳出 Review，在 Use on the web 選擇 @import
+                    (沒有自動跳出來可以按最上方的購物袋)
+
+                3. 覆蓋下方 @import 網址
+                4. 在 CSS rules to specify families 中複製，覆蓋下方 * 中的「font-family: ;」
+            */
+            @import url('https://fonts.googleapis.com/css2?family=Exo+2&display=swap');
+
+            :root {
+                --clock-color: rgba(255, 255, 255, 1); /* 文字顏色 */
+                --background-color: rgba(0, 0, 0, 1); /* 背景顏色 */
+            }
+
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: 'Exo 2', sans-serif;
+            }
+
+            html,
+            body {
+                width: 100%;
+                font-size: 150%;
+            }
+
+            [data-time],
+            [data-date] {
+                color: var(--clock-color);
+                justify-content: center;
+                display: flex;
+                align-items: center;
+                text-align: center;
+
+                /**
+                如果覺得背景太深，可以刪除下列幾行，反之太淺可以新增
+                預設
+                text-shadow:
+                    1px 1px 10px var(--background-color),
+                    1px 1px 10px var(--background-color),
+                    1px 1px 10px var(--background-color),
+                    1px 1px 10px var(--background-color);
+                 */
+
+                text-shadow:
+                    1px 1px 10px var(--background-color),
+                    1px 1px 10px var(--background-color),
+                    1px 1px 10px var(--background-color),
+                    1px 1px 10px var(--background-color);
+            }
+
+            [data-time] {
+                /* 時間字體大小 */
+                font-size: 200%;
+            }
+
+            [data-date] {
+                /* 日期字體大小 */
+                font-size: 100%;
+            }
+        </style>
+    </head>
+
+    <body>
+        <!-- 時間 -->
+        <div data-time></div>
+
+        <!-- 日期 -->
+        <div data-date></div>
+
+        <!-- 
+            下面就是時鐘自動跑的簡單 JavaScript 
+            您也可以選擇自行新增秒數、年份、星期等
+        -->
+        <script>
+            const times = document.querySelector('div[data-time]');
+            const date = document.querySelector('div[data-date]');
+
+            (function () {
+                var pad = function (x) {
+                    return x < 10 ? '0' + x : x;
+                };
+
+                var ticktock = function () {
+                    let time = new Date();
+
+                    let Y = pad(time.getFullYear());
+                    let M = pad(time.getMonth() + 1);
+                    let D = pad(time.getDate());
+                    let h = pad(time.getHours());
+                    let m = pad(time.getMinutes());
+                    let s = pad(time.getSeconds());
+                    let day = time.getDay();
+
+                    let current_date = [M, D].join('/');
+                    let current_time = [h, m].join(':');
+
+                    date.innerHTML = current_date;
+                    times.innerHTML = current_time;
+                };
+
+                ticktock();
+                setInterval(ticktock, 1000);
+            }());
+        </script>
+    </body>
+
+</html>
