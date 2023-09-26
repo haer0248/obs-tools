@@ -1,8 +1,10 @@
 # 只是個時鐘
-
 只是個小時鐘而已，也可以自己把時間或日期的 `<div>` 拔掉，只顯示時間或日期，  
 保留 `<div data-time></div>` 表示只顯示時間；  
 保留 `<div data-date></div>` 表示只顯示日期；  
+
+# 預覽結果
+![Image](https://image.haer0248.me/jvp1sR.png)
 
 # 下載
 下載 index.html 並存放到您的本機位置（檔案不可以刪除或移動，否則 OBS 會找不到檔案）  
